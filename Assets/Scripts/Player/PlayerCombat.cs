@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.Timeline;
 
 public class PlayerCombat : MonoBehaviour
-{
+{//add AttacRange/EnemyLayers/attackDamage/attackRate to PlayerData Scriptable Object
     public Transform Attackpoint;
     public Transform sidewaysAttackpoint;
     public Transform upAttackpoint;

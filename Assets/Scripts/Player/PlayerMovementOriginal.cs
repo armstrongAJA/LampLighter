@@ -5,6 +5,10 @@ using UnityEngine;
 
 public class PlayerMovementOriginal : MonoBehaviour
 {
+    //TODO: add maxSpeed/JumpSpeed/WallJumpSpeedx/WallSlideSpeed/NormalGravity/TrampolineJumpSpeed(?)/wallcheckDistance/downRecoilSpeed/horRecoilSpeed/
+            //recoilHorLerpAmount/recoilTime/JumpableGround/JumpableWall/coyoteTime/WallJumpActive/DoubleJumpActive/DashActive to PlayerData
+            //Scriptable object
+
     //Declare variables
     public bool isSceneTransitionActive = false;
     public bool isMovingEnabled = true;

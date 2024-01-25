@@ -7,6 +7,8 @@ using UnityEngine.SceneManagement;
 
 public class PlayerLife : MonoBehaviour
 {
+    //TODO: send max health/current health to PlayerData scriptable object
+
     //Declare variables
     private Rigidbody2D rb;
     private Animator anim;
