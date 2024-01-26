@@ -10,6 +10,7 @@ TagManager:
   - Enemy
   - CherryText
   - Exit
+  - Lamp
   layers:
   - Default
   - TransparentFX

@@ -44,5 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d56efb71ae3d44f839d6d9ca286ef44e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerData: {fileID: 11400000, guid: 5069f3359438147c19d7813ecc0a6f0d, type: 2}
   triggerDelayOnRoomEntrance: 0.5
   entranceSpeed: {x: 1, y: 0}

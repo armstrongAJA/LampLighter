@@ -298,6 +298,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a45461bb88a1f4d4d82da9caea42dac6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PlayerData: {fileID: 11400000, guid: 5069f3359438147c19d7813ecc0a6f0d, type: 2}
   isSceneTransitionActive: 0
   isMovingEnabled: 1
   WallJumpActive: 1
@@ -311,16 +312,6 @@ MonoBehaviour:
     m_Bits: 64
   sceneTransitionMovementDirectionHorizontal: 0
   sceneTransitionMovementDirectionVertical: 0
-  maxSpeed: 8
-  JumpSpeed: 14
-  WallJumpSpeedx: 10
-  WallJumpSpeedy: 10
-  WallSlideSpeed: 2
-  NormalGravity: 3
-  TrampolineJumpSpeed: 20
-  wallcheckDistance: 0.1
-  downRecoilSpeed: 10
-  horRecoilSpeed: 10
   WallContact: 0
   LastOnWallTime: 0
   WallJumpTime: 0.5
@@ -386,6 +377,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc75df17eb2564a3bb2cac548add83b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerData: {fileID: 11400000, guid: 5069f3359438147c19d7813ecc0a6f0d, type: 2}
   deathSoundEffect: {fileID: 5116369945896992932}
   MaxHealth: 100
   CurrentHealth: 0
@@ -702,6 +694,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b60d769bb2dba40a7a447c641fcc6707, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerData: {fileID: 11400000, guid: 5069f3359438147c19d7813ecc0a6f0d, type: 2}
   Attackpoint: {fileID: 1143488760598871367}
   sidewaysAttackpoint: {fileID: 1143488760598871367}
   upAttackpoint: {fileID: 216575244231982248}
@@ -712,7 +705,6 @@ MonoBehaviour:
     m_Bits: 256
   attackDamage: 20
   attackRate: 2
-  attackTime: 0.1
 --- !u!1 &6471373818625299690
 GameObject:
   m_ObjectHideFlags: 0

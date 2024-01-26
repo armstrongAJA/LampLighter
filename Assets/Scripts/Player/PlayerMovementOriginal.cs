@@ -6,10 +6,12 @@ using UnityEngine;
 public class PlayerMovementOriginal : MonoBehaviour
 {
     //TODO: add maxSpeed/JumpSpeed/WallJumpSpeedx/WallSlideSpeed/NormalGravity/TrampolineJumpSpeed(?)/wallcheckDistance/downRecoilSpeed/horRecoilSpeed/
-            //recoilHorLerpAmount/recoilTime/JumpableGround/JumpableWall/coyoteTime/WallJumpActive/DoubleJumpActive/DashActive to PlayerData
-            //Scriptable object
+    //recoilHorLerpAmount/recoilTime/JumpableGround/JumpableWall/coyoteTime/WallJumpActive/DoubleJumpActive/DashActive to PlayerData
+    //Scriptable object
 
     //Declare variables
+    public PlayerData PlayerData;
+
     public bool isSceneTransitionActive = false;
     public bool isMovingEnabled = true;
     public bool WallJumpActive = false;
@@ -26,16 +28,16 @@ public class PlayerMovementOriginal : MonoBehaviour
     public int sceneTransitionMovementDirectionHorizontal;
     public int sceneTransitionMovementDirectionVertical;
 
-    [SerializeField] private float maxSpeed = 7f;
-    [SerializeField] private float JumpSpeed = 14f;
-    [SerializeField] private float WallJumpSpeedx = 20f;
-    [SerializeField] private float WallJumpSpeedy = 14f;
-    [SerializeField] private float WallSlideSpeed = 4f;
-    [SerializeField] private float NormalGravity = 3f;
-    [SerializeField] private float TrampolineJumpSpeed = 20f;
-    [SerializeField] private float wallcheckDistance = .1f;
-    [SerializeField] private float downRecoilSpeed = 10f;
-    [SerializeField] private float horRecoilSpeed = 10f;
+    private float maxSpeed;
+    private float JumpSpeed;
+    private float WallJumpSpeedx;
+    private float WallJumpSpeedy;
+    private float WallSlideSpeed;
+    private float NormalGravity;
+    private float TrampolineJumpSpeed;
+    private float wallcheckDistance;
+    private float downRecoilSpeed;
+    private float horRecoilSpeed;
 
     public int WallContact;
     public float LastOnWallTime;
@@ -90,6 +92,25 @@ public class PlayerMovementOriginal : MonoBehaviour
         anim = GetComponent<Animator>();
         cameraFollowObject = cameraFollowGO.GetComponent<CameraFollowObjectScript>();
         fallSpeedYDampingChangeThreshold = CameraManager.instance.fallSpeedDampingChangeThreshold;
+
+        //initialize all variables from the playerData scriptable object
+        maxSpeed = PlayerData.maxSpeed;
+        JumpSpeed = PlayerData.jumpSpeed;
+        WallJumpSpeedx = PlayerData.wallJumpSpeedx;
+        WallJumpSpeedy = PlayerData.wallJumpSpeedy;
+        WallSlideSpeed = PlayerData.wallSlideSpeed;
+        NormalGravity = PlayerData.normalGravity;
+        TrampolineJumpSpeed  = PlayerData.trampolineJumpSpeed;
+        wallcheckDistance = PlayerData.wallcheckDistance;
+        downRecoilSpeed = PlayerData.downRecoilSpeed;
+        horRecoilSpeed = PlayerData.horRecoilSpeed;
+        JumpableGround = PlayerData.jumpableGround;
+        JumpableWall = PlayerData.jumpableWall;
+
+        //these should not be in start to update them as things get unlocked
+        doubleJumpActive = PlayerData.doubleJumpActive;
+        WallJumpActive = PlayerData.wallJumpActive;
+
     }
 
     // Update is called once per frame

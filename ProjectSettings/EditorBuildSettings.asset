@@ -35,4 +35,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Non_Game_Levels/EndScreen.unity
     guid: 89597b35f13844eba88848d750b3173b
+  - enabled: 1
+    path: Assets/Scenes/DEMO_scene1.unity
+    guid: 5f5cd46751c754be3aeba9dcce9725b1
   m_configObjects: {}

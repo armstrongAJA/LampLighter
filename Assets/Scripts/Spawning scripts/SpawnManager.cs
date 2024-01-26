@@ -7,6 +7,8 @@ using UnityEngine.SceneManagement;
 
 public class SpawnManager : MonoBehaviour
 {
+    public PlayerData playerData;
+    GameObject[] lamps;
     GameObject player;
     GameObject[] entranceList;
     ExitEntranceTrigger exitEntranceTrigger;//variable to hold exit class component of entrances gameobjects
@@ -43,6 +45,10 @@ public class SpawnManager : MonoBehaviour
         rb = player.GetComponent<Rigidbody2D>();
         movementScript = player.GetComponent<PlayerMovementOriginal>();
         entranceList = GameObject.FindGameObjectsWithTag("Exit");//find all exits and append to a list
+        if (playerData.dead)//dont do anything if the player died and its not a scene transition
+        {
+            return;
+        }
         Debug.Log("SceneLoaded" + entranceList + movementScript);
         foreach (GameObject entrance in entranceList)//loop over all the entrances in the list
         {
@@ -99,5 +105,25 @@ public class SpawnManager : MonoBehaviour
     public static implicit operator GameObject(SpawnManager v)
     {
         throw new NotImplementedException();
+    }
+
+    public IEnumerator SpawnAtBench()
+    {
+        Debug.Log("Respawning");
+        lamps = GameObject.FindGameObjectsWithTag("Lamp");//find all the lamps in the scene
+        foreach (GameObject lamp in lamps)//loop over all the lamps in the scene
+        {
+            if (lamp.GetComponent<Lamp>().lamp.lampIndex == playerData.lastLampIndex)//if the lamp is the current spawn point
+            {
+                yield return new WaitForSeconds(playerData.spawnWaitTime);
+                player.transform.position = lamp.GetComponent<Transform>().position;//spawn player at last lamp
+                Debug.Log("Reset player transform to lamp");
+                playerData.ResetStatsOnSpawn();//reset health etc on spawn
+                //playerData.dead = false;
+
+                Debug.Log("Respawned");
+
+            }
+        }
     }
 }

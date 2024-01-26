@@ -15,6 +15,7 @@ public class ExitEntranceTrigger : MonoBehaviour
     public void TriggerExitScene()
     {
         FindObjectOfType<SpawnManager>().ExitScene(exit);//call the exit scene method from the spawn manager
+        Debug.Log("ExitingScene");
     }
     
     private void OnTriggerExit2D(Collider2D collision)
