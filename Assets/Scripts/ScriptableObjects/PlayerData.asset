@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: PlayerData
   m_EditorClassIdentifier: 
   lastLampIndex: 0
+<<<<<<< HEAD
   lastLampSceneIndex: 10
   spawnWaitTime: 1
   isExitingScene: 0
@@ -20,6 +21,13 @@ MonoBehaviour:
   CurrentHealth: 100
   dead: 0
   respawning: 0
+=======
+  lastLampSceneIndex: 0
+  spawnWaitTime: 1
+  MaxHealth: 100
+  CurrentHealth: 100
+  dead: 0
+>>>>>>> 3db50ad510a1c15cb720fb44c6abfea912c39737
   maxSpeed: 8
   jumpSpeed: 14
   wallJumpSpeedx: 20
@@ -41,7 +49,11 @@ MonoBehaviour:
   normalGravity: 3
   fallGravityMult: 1.9
   wallJumpActive: 0
+<<<<<<< HEAD
   doubleJumpActive: 1
+=======
+  doubleJumpActive: 0
+>>>>>>> 3db50ad510a1c15cb720fb44c6abfea912c39737
   dashActive: 0
   EnemyLayers:
     serializedVersion: 2

@@ -175,7 +175,7 @@ public class SpawnManager : MonoBehaviour
         
         foreach (GameObject lamp in lamps)
         {
-            //lamp.GetComponent<Lamp>().lamp.lampSceneIndex = SceneManager.GetActiveScene().buildIndex;//update scene index of each lamp in level to this scene
+            lamp.GetComponent<Lamp>().lamp.lampSceneIndex = SceneManager.GetActiveScene().buildIndex;//update scene index of each lamp in level to this scene
             Debug.Log("Lamp Scene index set to " + lamp.GetComponent<Lamp>().lamp.lampSceneIndex);
         }
         Debug.Log("InitializedLamps");

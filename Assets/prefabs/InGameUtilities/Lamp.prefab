@@ -144,12 +144,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46dba4e4b8338479b8be4cfc25bc9ba8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+<<<<<<< HEAD
   playerData: {fileID: 11400000, guid: 5069f3359438147c19d7813ecc0a6f0d, type: 2}
+=======
+>>>>>>> 3db50ad510a1c15cb720fb44c6abfea912c39737
   healthbar: {fileID: 0}
   lamp:
     lampIndex: 0
     lampSceneIndex: 0
+<<<<<<< HEAD
     transform: {fileID: 0}
+=======
+>>>>>>> 3db50ad510a1c15cb720fb44c6abfea912c39737
 --- !u!82 &1311041123870850332
 AudioSource:
   m_ObjectHideFlags: 0
