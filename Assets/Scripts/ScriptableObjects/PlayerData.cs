@@ -6,24 +6,15 @@ using UnityEngine;
 public class PlayerData : ScriptableObject
 {
     [Header("Lamp Stuff")]
-<<<<<<< HEAD
     public LampData lastLamp;
     public float spawnWaitTime = 2f;
     public bool isExitingScene = false;
-=======
-    public int lastLampIndex;
-    public int lastLampSceneIndex;
-    public float spawnWaitTime = 2f;
->>>>>>> 3db50ad510a1c15cb720fb44c6abfea912c39737
 
     [Header("Player Health")]
     public int MaxHealth = 100;
     public int CurrentHealth;
     public bool dead = false;
-<<<<<<< HEAD
     public bool respawning = false;
-=======
->>>>>>> 3db50ad510a1c15cb720fb44c6abfea912c39737
 
 
     [Header("Player Movement Stats")]
@@ -68,10 +59,7 @@ public class PlayerData : ScriptableObject
     {
         CurrentHealth = MaxHealth;
         dead = false;
-<<<<<<< HEAD
         respawning = false;
-=======
->>>>>>> 3db50ad510a1c15cb720fb44c6abfea912c39737
         return;
     }
 

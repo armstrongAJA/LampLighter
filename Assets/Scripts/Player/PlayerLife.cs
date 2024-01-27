@@ -48,11 +48,7 @@ public class PlayerLife : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)//check for a collision
     {
-<<<<<<< HEAD
         if (collision.gameObject.CompareTag("Trap") && !playerData.respawning)//check if collision is with a trap
-=======
-        if (collision.gameObject.CompareTag("Trap") && !playerData.dead)//check if collision is with a trap
->>>>>>> 3db50ad510a1c15cb720fb44c6abfea912c39737
         {
             Die();//Function for player to die
         }
@@ -62,19 +58,13 @@ public class PlayerLife : MonoBehaviour
     public void Die()//function for player death
     {
         Debug.Log("Dying");
-<<<<<<< HEAD
         playerData.respawning = true;
 
-=======
->>>>>>> 3db50ad510a1c15cb720fb44c6abfea912c39737
         playerData.dead = true;
         rb.bodyType = RigidbodyType2D.Static;//Change player to static bodytype to turn physics off and fix player (so can't die twice)
         deathSoundEffect.Play();//Play death sound effect
         StartCoroutine(SpawnManager.SpawnAtBench());
-<<<<<<< HEAD
         Debug.Log("Dead");
-=======
->>>>>>> 3db50ad510a1c15cb720fb44c6abfea912c39737
     }
     
     public void TakeDamage(int damage)//function to take damage
