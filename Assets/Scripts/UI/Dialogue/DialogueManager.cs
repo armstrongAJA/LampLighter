@@ -9,6 +9,7 @@ public class DialogueManager : MonoBehaviour
     public Animator animator;
     public TMP_Text nameText;
     public TMP_Text dialogueText;
+    public bool isDialogueOpened = false;
 
     public Queue<string> sentences;
 
@@ -17,8 +18,17 @@ public class DialogueManager : MonoBehaviour
     {
         sentences = new Queue<string>();
     }
+    private void Update()
+    {
+        if (Input.GetButtonDown("Submit"))
+        {
+            DisplayNextSentence();
+        }
+
+    }
     public void StartDialogue(Dialogue dialogue)
     {
+        isDialogueOpened = true;
         animator.SetBool("isOpen",true);
         nameText.text = dialogue.name;
         sentences.Clear();
@@ -42,6 +52,7 @@ public class DialogueManager : MonoBehaviour
     }
     void EndDialogue()
     {
+        isDialogueOpened = false;
         animator.SetBool("isOpen", false);
     }
     IEnumerator TypeSentence(string sentence)

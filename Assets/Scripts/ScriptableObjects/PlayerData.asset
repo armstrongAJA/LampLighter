@@ -27,10 +27,11 @@ MonoBehaviour:
   wallJumpSpeedy: 14
   wallSlideSpeed: 4
   WallJumpTime: 0.5
-  wallcheckDistance: 0.1
+  wallcheckDistance: 0.2
   coyoteTime: 0.1
   maxFallSpeed: 18
   trampolineJumpSpeed: 20
+  groundCheckDistance: 1
   downRecoilSpeed: 10
   horRecoilSpeed: 10
   recoilHorLerpAmount: 0.5

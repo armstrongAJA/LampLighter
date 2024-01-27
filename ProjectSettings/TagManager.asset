@@ -11,11 +11,12 @@ TagManager:
   - CherryText
   - Exit
   - Lamp
+  - NPCs
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - NPCs
   - Water
   - UI
   - Ground

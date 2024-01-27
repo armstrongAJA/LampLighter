@@ -136,38 +136,16 @@ public class SpawnManager : MonoBehaviour
 
     public IEnumerator SpawnAtBench()
     {
+        //this runs in tandem with onsceneloaded (sorry for terrible naming of function)
         Debug.Log("Respawning");
-        if (playerData.lastLamp.lampSceneIndex != SceneManager.GetActiveScene().buildIndex)//if last lamp in different scene
+        if (1==1)//(playerData.lastLamp.lampSceneIndex != SceneManager.GetActiveScene().buildIndex)//if last lamp in different scene
         {
             yield return new WaitForSeconds(playerData.spawnWaitTime);
             SceneManager.LoadScene(playerData.lastLamp.lampSceneIndex);//load that scene
             Debug.Log("LoadedNewScene");
             
         }
-        else if (playerData.respawning && playerData.lastLamp.lampSceneIndex == SceneManager.GetActiveScene().buildIndex)//reset respawning variable to false if the player died and its not a scene transition
-        {
-            InitializeLampsInLevel();
-            player = GameObject.FindWithTag("Player");//find the player object
-            foreach (GameObject lamp in lamps)//loop over all the lamps in the scene
-            {
-
-                if (lamp.GetComponent<Lamp>().lamp.lampIndex == playerData.lastLamp.lampIndex)//if the lamp is the current spawn point
-                {
-                    Debug.Log(lamp.GetComponent<Lamp>().lamp.lampIndex);
-                    yield return new WaitForSeconds(playerData.spawnWaitTime);
-                    player.transform.position = lamp.transform.position;//spawn player at last lamp
-                    Debug.Log("Reset player transform to lamp");
-                    playerData.ResetStatsOnSpawn();//reset health etc on spawn
-                                                   //playerData.dead = false;
-                    Debug.Log("isPlayerRespawning = " + playerData.respawning);
-                    playerData.respawning = false;
-                    playerData.dead = false;
-                    Debug.Log("Respawned at:" + player.transform.position);
-
-                }
-            }
-
-        }
+        
     }
     public void InitializeLampsInLevel()
     {
