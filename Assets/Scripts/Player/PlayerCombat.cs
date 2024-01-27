@@ -6,24 +6,26 @@ using UnityEngine.Timeline;
 
 public class PlayerCombat : MonoBehaviour
 {
+    public PlayerData playerData;
+
     public Transform Attackpoint;
     public Transform sidewaysAttackpoint;
     public Transform upAttackpoint;
     public Transform downAttackpoint;
 
-    public float AttackRange = 0.5f;
+    public float AttackRange;
 
     public LayerMask EnemyLayers;
 
-    public int attackDamage = 20;
+    public int attackDamage;
 
-    public float attackRate = 2f;
+    public float attackRate;
 
     private float nextAttackTime = 0f;
 
     private int attackDirection;//attack directions: up = 1, down = -1, horizontal = 0
 
-    [SerializeField] float attackTime = .1f;//set time attack sprite is active for
+    float attackTime;//set time attack sprite is active for
 
     private SpriteRenderer attackSpriteDefault;
     private SpriteRenderer attackSpriteUp;
@@ -39,6 +41,15 @@ public class PlayerCombat : MonoBehaviour
         attackSpriteDown = GameObject.Find("AttackSpriteDown").GetComponent<SpriteRenderer>();
         attackSpriteDefault = GameObject.Find("AttackSpriteDefault").GetComponent<SpriteRenderer>();
         playerMovement = gameObject.GetComponent<PlayerMovementOriginal>();
+
+        //grab these from the player data scriptable object
+        AttackRange = playerData.attackRange;
+        attackDamage = playerData.attackDamage;
+        attackRate = playerData.attackRate;
+        attackTime = playerData.attackTime;
+        EnemyLayers = playerData.EnemyLayers;
+
+
     }
 
     void Update()

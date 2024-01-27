@@ -7,6 +7,10 @@ using UnityEngine.SceneManagement;
 
 public class SpawnManager : MonoBehaviour
 {
+    public GameObject FrogEnemy;
+
+    public PlayerData playerData;
+    GameObject[] lamps;
     GameObject player;
     GameObject[] entranceList;
     ExitEntranceTrigger exitEntranceTrigger;//variable to hold exit class component of entrances gameobjects
@@ -15,6 +19,7 @@ public class SpawnManager : MonoBehaviour
     private Rigidbody2D rb;
     private PlayerMovementOriginal movementScript;
     static int entranceIndex;
+    public Transform lampSpawnPosition;
 
     // Start is called before the first frame update
     public static SpawnManager instance = null;
@@ -43,18 +48,45 @@ public class SpawnManager : MonoBehaviour
         rb = player.GetComponent<Rigidbody2D>();
         movementScript = player.GetComponent<PlayerMovementOriginal>();
         entranceList = GameObject.FindGameObjectsWithTag("Exit");//find all exits and append to a list
-        Debug.Log("SceneLoaded" + entranceList + movementScript);
-        foreach (GameObject entrance in entranceList)//loop over all the entrances in the list
+
+        Debug.Log("RunningOnSceneLoad");
+        if (playerData.respawning)//reset respawning variable to false if the player died and its not a scene transition
         {
-            exitEntranceTrigger = entrance.GetComponent<ExitEntranceTrigger>();//get the exit class component of each entrance
-            if (exitEntranceTrigger.exit.exitIndex == entranceIndex)//only do this code for
-                                                                    //the exit with index matching the new entrance
+            InitializeLampsInLevel();
+            foreach (GameObject lamp in lamps)//loop over all the lamps in the scene
             {
-                Debug.Log("EntranceIndex:" + exitEntranceTrigger.exit.entranceIndex);
-                //exitEntranceTrigger.exit.exitCollider.enabled = false;//disable exit collider so you dont immediately switch levels again
-                //player.GetComponent<Rigidbody2D>().MovePosition(exitEntranceTrigger.exit.exitCollider.transform.position);//set the spawn position of the player
-                StartCoroutine(ControlTriggerBehaviour(triggerDelayOnRoomEntrance, exitEntranceTrigger.exit.exitCollider));
-                player.transform.position = exitEntranceTrigger.exit.exitCollider.transform.position;//set the spawn position of the player
+
+                if (lamp.GetComponent<Lamp>().lamp.lampIndex == playerData.lastLamp.lampIndex)//if the lamp is the current spawn point
+                {
+                    Debug.Log(lamp.GetComponent<Lamp>().lamp.lampIndex);
+                    //yield return new WaitForSeconds(playerData.spawnWaitTime);
+                    player.transform.position = lamp.transform.position;//spawn player at last lamp
+                    Debug.Log("Reset player transform to lamp");
+                    playerData.ResetStatsOnSpawn();//reset health etc on spawn
+                                                   //playerData.dead = false;
+                    Debug.Log("isPlayerRespawning = " + playerData.respawning);
+                    playerData.respawning = false;
+                    playerData.dead = false;
+                    Debug.Log("Respawned at:" + player.transform.position);
+
+                }
+            }
+        }
+        else if (playerData.isExitingScene)
+        {
+            Debug.Log("Scene Loaded Because Exiting Scene Via Trigger" + entranceList + movementScript);
+            foreach (GameObject entrance in entranceList)//loop over all the entrances in the list
+            {
+                exitEntranceTrigger = entrance.GetComponent<ExitEntranceTrigger>();//get the exit class component of each entrance
+                if (exitEntranceTrigger.exit.exitIndex == entranceIndex)//only do this code for
+                                                                        //the exit with index matching the new entrance
+                {
+                    Debug.Log("EntranceIndex:" + exitEntranceTrigger.exit.entranceIndex);
+                    //exitEntranceTrigger.exit.exitCollider.enabled = false;//disable exit collider so you dont immediately switch levels again
+                    //player.GetComponent<Rigidbody2D>().MovePosition(exitEntranceTrigger.exit.exitCollider.transform.position);//set the spawn position of the player
+                    StartCoroutine(ControlTriggerBehaviour(triggerDelayOnRoomEntrance, exitEntranceTrigger.exit.exitCollider));
+                    player.transform.position = exitEntranceTrigger.exit.exitCollider.transform.position;//set the spawn position of the player
+                }
             }
         }
     }
@@ -65,6 +97,7 @@ public class SpawnManager : MonoBehaviour
         if (exit.isLevelExit)//if the exit leads to a different level
         {
             SceneManager.LoadScene(exit.newLevelName);//load this level
+            playerData.isExitingScene = false;
         }
         else//else load spawnpoint within current level
         {
@@ -99,5 +132,52 @@ public class SpawnManager : MonoBehaviour
     public static implicit operator GameObject(SpawnManager v)
     {
         throw new NotImplementedException();
+    }
+
+    public IEnumerator SpawnAtBench()
+    {
+        Debug.Log("Respawning");
+        if (playerData.lastLamp.lampSceneIndex != SceneManager.GetActiveScene().buildIndex)//if last lamp in different scene
+        {
+            yield return new WaitForSeconds(playerData.spawnWaitTime);
+            SceneManager.LoadScene(playerData.lastLamp.lampSceneIndex);//load that scene
+            Debug.Log("LoadedNewScene");
+            
+        }
+        else if (playerData.respawning && playerData.lastLamp.lampSceneIndex == SceneManager.GetActiveScene().buildIndex)//reset respawning variable to false if the player died and its not a scene transition
+        {
+            InitializeLampsInLevel();
+            player = GameObject.FindWithTag("Player");//find the player object
+            foreach (GameObject lamp in lamps)//loop over all the lamps in the scene
+            {
+
+                if (lamp.GetComponent<Lamp>().lamp.lampIndex == playerData.lastLamp.lampIndex)//if the lamp is the current spawn point
+                {
+                    Debug.Log(lamp.GetComponent<Lamp>().lamp.lampIndex);
+                    yield return new WaitForSeconds(playerData.spawnWaitTime);
+                    player.transform.position = lamp.transform.position;//spawn player at last lamp
+                    Debug.Log("Reset player transform to lamp");
+                    playerData.ResetStatsOnSpawn();//reset health etc on spawn
+                                                   //playerData.dead = false;
+                    Debug.Log("isPlayerRespawning = " + playerData.respawning);
+                    playerData.respawning = false;
+                    playerData.dead = false;
+                    Debug.Log("Respawned at:" + player.transform.position);
+
+                }
+            }
+
+        }
+    }
+    public void InitializeLampsInLevel()
+    {
+        lamps = GameObject.FindGameObjectsWithTag("Lamp");//find all the lamps in the scene
+        
+        foreach (GameObject lamp in lamps)
+        {
+            //lamp.GetComponent<Lamp>().lamp.lampSceneIndex = SceneManager.GetActiveScene().buildIndex;//update scene index of each lamp in level to this scene
+            Debug.Log("Lamp Scene index set to " + lamp.GetComponent<Lamp>().lamp.lampSceneIndex);
+        }
+        Debug.Log("InitializedLamps");
     }
 }

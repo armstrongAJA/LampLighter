@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ExitEntranceTrigger : MonoBehaviour
 {
+    public PlayerData playerData;
     public Exit exit;
     Collider2D coll;
 
@@ -15,12 +16,15 @@ public class ExitEntranceTrigger : MonoBehaviour
     public void TriggerExitScene()
     {
         FindObjectOfType<SpawnManager>().ExitScene(exit);//call the exit scene method from the spawn manager
+        Debug.Log("ExitingScene");
     }
     
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))//if player enters exit trigger
         {
+            playerData.isExitingScene = true;
+            Debug.Log("ExitingSceneTriggered");
             TriggerExitScene();//trigger scene exit/entrance in new scene at right location
         }
     }

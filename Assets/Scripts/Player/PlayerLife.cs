@@ -7,14 +7,18 @@ using UnityEngine.SceneManagement;
 
 public class PlayerLife : MonoBehaviour
 {
+    //TODO: send max health/current health to PlayerData scriptable object
+
     //Declare variables
+    public PlayerData playerData;
+    private SpawnManager SpawnManager;
     private Rigidbody2D rb;
     private Animator anim;
     [SerializeField] private AudioSource deathSoundEffect;
     public int MaxHealth = 100;
     public int CurrentHealth;
 
-    private bool dead = false;
+    private bool dead;
     private float nextDamageTime;
 
     private float damageCooldownTime = 0.5f;
@@ -27,36 +31,40 @@ public class PlayerLife : MonoBehaviour
         healthbar = GameObject.Find("HealthBar").GetComponent<HealthBarScript>();
         CurrentHealth = MaxHealth;//initialize enemy health when instantiated
         healthbar.SetMaxHealth(MaxHealth);
-
-
+        SpawnManager = GameObject.FindFirstObjectByType<SpawnManager>();
+    }
+    private void Update()
+    {
+        if (playerData.dead == true)
+        {
+            anim.SetBool("Death", true);
+        }
+        if (playerData.dead == false)
+        {
+            anim.SetBool("Death", false);
+            rb.bodyType = RigidbodyType2D.Dynamic;
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)//check for a collision
     {
-        if (collision.gameObject.CompareTag("Trap"))//check if collision is with a trap
+        if (collision.gameObject.CompareTag("Trap") && !playerData.respawning)//check if collision is with a trap
         {
             Die();//Function for player to die
         }
     }
-    public void OnTriggerEnter2D(Collider2D collision)//set trigger to alllow platforms to fall through fall death box
-    {
-        if (collision.gameObject.CompareTag("Trap"))//if triggered (treating box as trap)
-        {
-            Die();//Player dies from falling off map
-        }
-    }
+    
 
     public void Die()//function for player death
     {
-        anim.SetTrigger("Death");//Set death animation running
+        Debug.Log("Dying");
+        playerData.respawning = true;
+
+        playerData.dead = true;
         rb.bodyType = RigidbodyType2D.Static;//Change player to static bodytype to turn physics off and fix player (so can't die twice)
         deathSoundEffect.Play();//Play death sound effect
-        Invoke("RestartLevel", 2f);
-    }
-
-    private void RestartLevel()//function to restart the level upon death, 
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);//reload current scene
+        StartCoroutine(SpawnManager.SpawnAtBench());
+        Debug.Log("Dead");
     }
     
     public void TakeDamage(int damage)//function to take damage
@@ -67,12 +75,15 @@ public class PlayerLife : MonoBehaviour
             CurrentHealth -= damage; //reduce health by damage amount
             if (CurrentHealth <= 0 && !dead) //check if health is reduced to zero
             {
-                Die(); //implement code to kill off player
+                playerData.respawning = true;
                 dead = true;
+                Die(); //implement code to kill off player
+                
+                
             }
 
             nextDamageTime = Time.time + damageCooldownTime; //increase next damage time by damage cool down
         }
-        healthbar.SetHealth(CurrentHealth);
+        healthbar.SetHealth(CurrentHealth);//update the health bar
     }
 }

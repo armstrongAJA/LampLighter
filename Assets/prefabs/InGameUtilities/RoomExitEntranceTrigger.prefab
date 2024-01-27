@@ -90,6 +90,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3ff9423116cf448ab66758115a9ae47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerData: {fileID: 11400000, guid: 5069f3359438147c19d7813ecc0a6f0d, type: 2}
   exit:
     exitIndex: 0
     entranceIndex: 1
