@@ -12,12 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbfb154d688994ab89fd711d0882ffeb, type: 3}
   m_Name: PlayerData
   m_EditorClassIdentifier: 
-  lastLampIndex: 0
-  lastLampSceneIndex: 0
+  lastLamp:
+    lampIndex: 0
+    lampSceneIndex: 1
   spawnWaitTime: 1
+  isExitingScene: 0
   MaxHealth: 100
   CurrentHealth: 100
   dead: 0
+  respawning: 0
   maxSpeed: 8
   jumpSpeed: 14
   wallJumpSpeedx: 20
@@ -39,7 +42,7 @@ MonoBehaviour:
   normalGravity: 3
   fallGravityMult: 1.9
   wallJumpActive: 0
-  doubleJumpActive: 0
+  doubleJumpActive: 1
   dashActive: 0
   EnemyLayers:
     serializedVersion: 2
