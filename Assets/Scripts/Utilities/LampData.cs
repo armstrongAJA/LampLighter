@@ -7,4 +7,5 @@ public class LampData
 {
     public int lampIndex;
     public int lampSceneIndex;
+    public bool isLampLit = false;
 }

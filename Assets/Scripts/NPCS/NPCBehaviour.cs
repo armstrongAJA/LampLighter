@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class NPCBehaviour : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class NPCBehaviour : MonoBehaviour
     DialogueTrigger dialogueTrigger;
     bool triggerStay = false;
     public DialogueManager dialogueManager;
+    public TMP_Text interactionTextPrompt;
 
     // Start is called before the first frame update
     void Start()
@@ -18,6 +20,10 @@ public class NPCBehaviour : MonoBehaviour
     }
     private void Update()
     {
+        if (triggerStay)
+        {
+            interactionTextPrompt.enabled = true;
+        }
         if (Input.GetButtonDown("Submit") && triggerStay)
         {
             if (!dialogueManager.isDialogueOpened)
@@ -30,6 +36,10 @@ public class NPCBehaviour : MonoBehaviour
                 Debug.Log("Displaying next sentence");
                 dialogueManager.DisplayNextSentence();
             }
+        }
+        if (!triggerStay)
+        {
+            interactionTextPrompt.enabled = false;
         }
     }
 

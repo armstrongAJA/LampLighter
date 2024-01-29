@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lastLamp:
     lampIndex: 0
-    lampSceneIndex: 1
+    lampSceneIndex: 0
+    isLampLit: 0
   spawnWaitTime: 1
   isExitingScene: 0
   MaxHealth: 100
@@ -32,6 +33,8 @@ MonoBehaviour:
   maxFallSpeed: 18
   trampolineJumpSpeed: 20
   groundCheckDistance: 1
+  jumpDisabledWindowTime: 0.3
+  lastJumpedTime: 77.7817
   downRecoilSpeed: 10
   horRecoilSpeed: 10
   recoilHorLerpAmount: 0.5
@@ -43,7 +46,7 @@ MonoBehaviour:
   normalGravity: 3
   fallGravityMult: 1.9
   wallJumpActive: 0
-  doubleJumpActive: 1
+  doubleJumpActive: 0
   dashActive: 0
   EnemyLayers:
     serializedVersion: 2

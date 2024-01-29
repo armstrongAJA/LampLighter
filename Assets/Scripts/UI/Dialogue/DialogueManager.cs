@@ -18,14 +18,7 @@ public class DialogueManager : MonoBehaviour
     {
         sentences = new Queue<string>();
     }
-    private void Update()
-    {
-        if (Input.GetButtonDown("Submit"))
-        {
-            DisplayNextSentence();
-        }
-
-    }
+   
     public void StartDialogue(Dialogue dialogue)
     {
         isDialogueOpened = true;

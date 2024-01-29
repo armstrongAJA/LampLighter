@@ -15,6 +15,7 @@ public class PlayerMovementOriginal : MonoBehaviour
     public bool isSceneTransitionActive = false;
     public bool isMovingEnabled = true;
     public bool WallJumpActive = false;
+    private bool isJumping = false;
     public Rigidbody2D rb;
     private BoxCollider2D coll;
     private SpriteRenderer sprite;
@@ -53,6 +54,7 @@ public class PlayerMovementOriginal : MonoBehaviour
     private bool isWallJumping = false;
     public bool isFacingRight;
     public bool wasFacingRight;
+    private float lastJumpedTime = 0f;
 
     public bool isRecoilingVert = false;
     public bool isRecoilingHor = false;
@@ -106,7 +108,6 @@ public class PlayerMovementOriginal : MonoBehaviour
         horRecoilSpeed = PlayerData.horRecoilSpeed;
         JumpableGround = PlayerData.jumpableGround;
         JumpableWall = PlayerData.jumpableWall;
-
         //these should not be in start to update them as things get unlocked
         doubleJumpActive = PlayerData.doubleJumpActive;
         WallJumpActive = PlayerData.wallJumpActive;
@@ -166,8 +167,10 @@ public class PlayerMovementOriginal : MonoBehaviour
 
             if (Input.GetButtonDown("Jump")) //check if jumping and player is touching ground
             {
-                if (LastOnGroundTime > 0f) //if grounded
+                if (LastOnGroundTime > 0 && !isJumping) //if grounded
                 {
+                    isJumping = true;
+                    lastJumpedTime = Time.time;
                     jumpSoundEffect.Play(); //play jump sound effect
                     rb.AddForce(Vector2.up * JumpSpeed, ForceMode2D.Impulse); //adds jump force to player
                     DoubleJump = true; //allow double jump
@@ -181,6 +184,10 @@ public class PlayerMovementOriginal : MonoBehaviour
                     rb.AddForce(Vector2.up * JumpSpeed, ForceMode2D.Impulse); //adds jump force to player
                     DoubleJump = false; //disable furrther jumping till grounded again
                 }
+            }
+            if (lastJumpedTime<(Time.time - PlayerData.jumpDisabledWindowTime))
+            {
+                isJumping = false;
             }
         }
         if (sceneTransitionMovementDirectionVertical==1 && !isMovingEnabled && isSceneTransitionActive)//check if scene transition direction is upwards
@@ -307,7 +314,7 @@ public class PlayerMovementOriginal : MonoBehaviour
 
         public bool IsGrounded() //Function to check if the player is touching the ground
         {
-            return (Physics2D.BoxCast(coll.bounds.center, coll.bounds.size, 0f, Vector2.down, .1f,
+            return (Physics2D.BoxCast(coll.bounds.center, coll.bounds.size, 0f, Vector2.down, PlayerData.groundCheckDistance,
                 JumpableGround)); //casts box .1 below collision box to only extend below collision
         }
 

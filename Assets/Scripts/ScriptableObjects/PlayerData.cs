@@ -29,6 +29,7 @@ public class PlayerData : ScriptableObject
     public float maxFallSpeed = 18f;
     public float trampolineJumpSpeed = 20f;
     public float groundCheckDistance = .2f;
+    public float jumpDisabledWindowTime = .3f;
 
     [Header("Player Combat stuff")]
     public float downRecoilSpeed = 10f;
