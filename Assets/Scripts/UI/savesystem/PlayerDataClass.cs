@@ -2,21 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 [System.Serializable]
-public class PlayerDataClass//create a new data class to define variables to save and load
+public class PlayerDataClass//create a new data type to define variables to save and load
 {
-    //declare variables
-    public int MaxLevel;
-    public bool NewGame = PlayerSaveData.newGame;
+    //Lamp stuff:
+    public int lastLampIndex;
+    public int lastLampSceneIndex;
 
-    public PlayerDataClass(PlayerSaveData playerSaveData)//start class
+    //unlocked abilities:
+    public bool wallJumpActive = false;
+    public bool doubleJumpActive = false;
+    public bool dashActive = false;
+
+    public PlayerDataClass(PlayerSaveData playerSaveData)//make a method to set these variables - this is called a constructor, to write the above class
     {
-        if (!NewGame)//check if starting a new game
-        {
-            MaxLevel = PlayerSaveData.MaxLevel;//if not, set maxlevel to that of save file
-        }
-        else
-        {
-            MaxLevel = 1;//if new game, default maxlevel to 1
-        }
+        lastLampIndex = playerSaveData.lastLampIndex;
+        lastLampSceneIndex = playerSaveData.lastLampSceneIndex;
+        wallJumpActive = playerSaveData.wallJumpActive;
+        doubleJumpActive = playerSaveData.doubleJumpActive;
+        dashActive = playerSaveData.dashActive;
     }
 }

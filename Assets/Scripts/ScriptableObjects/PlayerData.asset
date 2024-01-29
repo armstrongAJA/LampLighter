@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lastLamp:
     lampIndex: 0
-    lampSceneIndex: 0
+    lampSceneIndex: 1
     isLampLit: 0
   spawnWaitTime: 1
   isExitingScene: 0
@@ -34,7 +34,6 @@ MonoBehaviour:
   trampolineJumpSpeed: 20
   groundCheckDistance: 1
   jumpDisabledWindowTime: 0.3
-  lastJumpedTime: 77.7817
   downRecoilSpeed: 10
   horRecoilSpeed: 10
   recoilHorLerpAmount: 0.5
