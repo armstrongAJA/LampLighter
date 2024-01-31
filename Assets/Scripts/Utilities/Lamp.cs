@@ -11,16 +11,18 @@ public class Lamp : MonoBehaviour
     public LampData lamp;
     private bool triggerStay = false;
     public TMP_Text interactTextPrompt;
+    private PlayerSaveData playerSaveData;
 
     // Start is called before the first frame update
     private void Start()
     {
         maxHealthSoundEffect = gameObject.GetComponent<AudioSource>();
         healthbar = GameObject.Find("HealthBar").GetComponent<HealthBarScript>();
+        playerSaveData = GetComponent<PlayerSaveData>();
     }
     private void Update()
     {
-        if (triggerStay && (playerData.lastLamp.lampIndex != lamp.lampIndex || playerData.lastLamp.lampSceneIndex !=lamp.lampSceneIndex))//if player within collider and lamp not yet lit
+        if (triggerStay) //&& (playerData.lastLamp.lampIndex != lamp.lampIndex || playerData.lastLamp.lampSceneIndex !=lamp.lampSceneIndex))//if player within collider and lamp not yet lit
         {
             interactTextPrompt.enabled = true;
 
@@ -33,6 +35,7 @@ public class Lamp : MonoBehaviour
                 playerData.lastLamp.lampIndex = lamp.lampIndex;
                 playerData.lastLamp.lampSceneIndex = lamp.lampSceneIndex;//set lamp as new spawn point (scene and lamp indices)
                 lamp.isLampLit = true;//light lamp
+                playerSaveData.SavePlayerData();
             }
         }
         else

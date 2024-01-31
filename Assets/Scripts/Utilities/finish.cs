@@ -10,6 +10,7 @@ public class finish : MonoBehaviour
     public static int CurrentLevel = 0;
     public Animator transition;
     public float transitionTime = 1;
+    public PlayerData playerSaveData;
 
     private bool LevelComplete = false;
     // Start is called before the first frame update
@@ -32,11 +33,11 @@ public class finish : MonoBehaviour
     private void CompleteLevel()//method to complete the level abd change to next level
     {
         CurrentLevel = int.Parse(SceneManager.GetActiveScene().name[^1].ToString());//get current level as integer
-        if (PlayerSaveData.MaxLevel <= CurrentLevel)//check if the max level reached in save is lower than the current level
+        if (playerSaveData.MaxLevel <= CurrentLevel)//check if the max level reached in save is lower than the current level
         {
             Debug.Log("CurrentLevel" + CurrentLevel);
-            PlayerSaveData.MaxLevel = CurrentLevel+1;//Increase Max level global variable
-            Debug.Log("MaxLevel:" + PlayerSaveData.MaxLevel);
+            playerSaveData.MaxLevel = CurrentLevel+1;//Increase Max level global variable
+            Debug.Log("MaxLevel:" + playerSaveData.MaxLevel);
             GetComponent<PlayerSaveData>().SavePlayerData();//Save level
         }
         StartCoroutine(Loadlevel(SceneManager.GetActiveScene().buildIndex + 1));

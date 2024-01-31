@@ -13,7 +13,7 @@ public class PlayerDataClass//create a new data type to define variables to save
     public bool doubleJumpActive = false;
     public bool dashActive = false;
 
-    public PlayerDataClass(PlayerSaveData playerSaveData)//make a method to set these variables - this is called a constructor, to write the above class
+    public void PlayerDataClassInitializer(PlayerSaveData playerSaveData)//make a method to set these variables - this is called a constructor, to write the above class
     {
         lastLampIndex = playerSaveData.lastLampIndex;
         lastLampSceneIndex = playerSaveData.lastLampSceneIndex;

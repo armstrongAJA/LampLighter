@@ -184,6 +184,7 @@ GameObject:
   - component: {fileID: 5676981077951477272}
   - component: {fileID: 5098733560021621484}
   - component: {fileID: 1311041123870850332}
+  - component: {fileID: 6424609925789861442}
   m_Layer: 0
   m_Name: Lamp1
   m_TagString: Lamp
@@ -419,3 +420,23 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &6424609925789861442
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2423359985838743380}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82178c6aeca984204bb9bcc3304bf4d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerData: {fileID: 11400000, guid: 5069f3359438147c19d7813ecc0a6f0d, type: 2}
+  EncryptionEnabled: 0
+  lastLampIndex: 0
+  lastLampSceneIndex: 0
+  wallJumpActive: 0
+  doubleJumpActive: 0
+  dashActive: 0
+  MaxLevel: 1

@@ -5,6 +5,7 @@ using UnityEngine;
 [CreateAssetMenu]
 public class PlayerData : ScriptableObject
 {
+    public int MaxLevel = 1;
     [Header("Lamp Stuff")]
     public LampData lastLamp;
     public float spawnWaitTime = 2f;

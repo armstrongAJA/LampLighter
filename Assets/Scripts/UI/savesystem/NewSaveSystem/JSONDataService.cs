@@ -7,7 +7,7 @@ using System;
 
 public class JSONDataService : IDataService
 {
-    public bool SaveData<T>(string RelativePath, T Data, bool Encrypted)
+    public bool SaveData<T>(string RelativePath, T Data, bool Encrypted)//function to save the data
     {
         string path = Application.persistentDataPath + RelativePath;
         try
@@ -30,14 +30,29 @@ public class JSONDataService : IDataService
 
         catch (Exception e)
         {
-            Debug.LogError("Data not saved due to:" + e.Message + e.StackTrace);
+            Debug.LogError($"Data not saved due to: {e.Message} + {e.StackTrace}");
             return false;
         }
         
     }
 
-    public T LoadData<T>(string RelativePath, bool Encrypted)
+    public T LoadData<T>(string RelativePath, bool Encrypted)//function to load the data
     {
-        throw new System.NotImplementedException();
+        string path = Application.persistentDataPath + RelativePath;
+        if(!File.Exists(path))
+        {
+            Debug.LogError($"File does not exist at {path}");
+            throw new FileNotFoundException($"{path} does not exist!");
+        }
+        try
+        {
+            T data = JsonConvert.DeserializeObject<T>(File.ReadAllText(path));
+            return data;
+        }
+        catch(Exception e)
+        {
+            Debug.LogError($"Failed to load data due to {e.Message} + {e.StackTrace}");
+            throw e;
+        }
     }
 }

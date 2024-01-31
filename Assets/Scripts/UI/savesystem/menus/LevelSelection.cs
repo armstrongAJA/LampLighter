@@ -10,14 +10,14 @@ public class LevelSelection : MonoBehaviour
     [SerializeField] private string LoadLevel;//level which needs to be loaded
     private void Start()
     {
-        if (PlayerSaveData.MaxLevel < int.Parse(LoadLevel[^1].ToString()))//Check if level to be loaded in button is less than maximum unlocked
-        {
-            gameObject.SetActive(false);//if so, deactivate the button
-        }
-        else
-        {
-            gameObject.SetActive(true);//if not, activate the button
-        }
+        //if (PlayerSaveData.MaxLevel < int.Parse(LoadLevel[^1].ToString()))//Check if level to be loaded in button is less than maximum unlocked
+        //{
+        //    gameObject.SetActive(false);//if so, deactivate the button
+       // }
+       // else
+        //{
+        //    gameObject.SetActive(true);//if not, activate the button
+        //}
     }
     
     public void PressLevelButton()//What to do if button is pressed
