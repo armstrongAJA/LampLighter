@@ -5,10 +5,6 @@ using UnityEngine;
 
 public class PlayerMovementOriginal : MonoBehaviour
 {
-    //TODO: add maxSpeed/JumpSpeed/WallJumpSpeedx/WallSlideSpeed/NormalGravity/TrampolineJumpSpeed(?)/wallcheckDistance/downRecoilSpeed/horRecoilSpeed/
-    //recoilHorLerpAmount/recoilTime/JumpableGround/JumpableWall/coyoteTime/WallJumpActive/DoubleJumpActive/DashActive to PlayerData
-    //Scriptable object
-
     //Declare variables
     public PlayerData PlayerData;
 
@@ -109,8 +105,7 @@ public class PlayerMovementOriginal : MonoBehaviour
         JumpableGround = PlayerData.jumpableGround;
         JumpableWall = PlayerData.jumpableWall;
         //these should not be in start to update them as things get unlocked
-        doubleJumpActive = PlayerData.doubleJumpActive;
-        WallJumpActive = PlayerData.wallJumpActive;
+       
 
     }
 
@@ -177,7 +172,7 @@ public class PlayerMovementOriginal : MonoBehaviour
 
                     Debug.Log("Jumping");
                 }
-                else if (doubleJumpActive && DoubleJump) //check if double jump allowed and unlocked
+                else if (PlayerData.doubleJumpActive && DoubleJump) //check if double jump allowed and unlocked
                 {
                     jumpSoundEffect.Play(); //play jump sound effect
                     rb.velocity = new Vector2(rb.velocity.x, 0f); //reset velocity to zero in y
@@ -219,7 +214,7 @@ public class PlayerMovementOriginal : MonoBehaviour
             }
 
             if (WallContact != 0 && !IsGrounded() &&
-                    WallJumpActive) //check if player is touching wall, is not grounded and wall jump power unlocked
+                    PlayerData.wallJumpActive) //check if player is touching wall, is not grounded and wall jump power unlocked
             {
                 LastOnWallTime = coyoteTime; //reset last on wall time to coyote time
                                              //LastOnWallTime is seperate from LastWallJumpTime to track jump and slide physics seperately
@@ -392,7 +387,7 @@ public class PlayerMovementOriginal : MonoBehaviour
 
         void WallSlide() //function to implement wall slide
         {
-            if (WallContact != 0 && !IsGrounded() && WallJumpActive &&
+            if (WallContact != 0 && !IsGrounded() && PlayerData.wallJumpActive &&
                 rb.velocity.y < 0) //check if in contact with the wall, not grounded, wall jump unlocked and falling
                 //only implemented if falling to ensure upward velocity doesn't cut to zero when in contact with a wall
             {

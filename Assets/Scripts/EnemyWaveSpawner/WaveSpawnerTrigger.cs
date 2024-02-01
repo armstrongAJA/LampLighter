@@ -16,6 +16,8 @@ public class WaveSpawnerTrigger : MonoBehaviour
     {
         spawner.battleOver = false;//set battle to not started yet
         spawner.battleTriggered = true;//trigger battle on collision with trigger
-        
+        spawner.enemiesBeforeWave = GameObject.FindGameObjectsWithTag("Enemy").Length;//set number of enemies to reach before spawning new wave
+        coll.enabled = false;
+
     }
 }

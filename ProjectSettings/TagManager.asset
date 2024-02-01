@@ -12,6 +12,7 @@ TagManager:
   - Exit
   - Lamp
   - NPCs
+  - Ground
   layers:
   - Default
   - TransparentFX

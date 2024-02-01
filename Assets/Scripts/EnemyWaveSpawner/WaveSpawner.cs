@@ -24,6 +24,7 @@ public class WaveSpawner : MonoBehaviour
     private float nextSpawnTime;
     public bool battleOver = false;
     public bool battleTriggered = false;
+    public int enemiesBeforeWave;
 
     private void Update()
     {
@@ -32,12 +33,12 @@ public class WaveSpawner : MonoBehaviour
             currentWave = waves[currentWaveNumber];//update current wave number
             SpawnWave();//implement code to spawn enemies within the current wave
             GameObject[] totalEnemies = GameObject.FindGameObjectsWithTag("Enemy");//update total enemy counter
-            if (totalEnemies.Length == 0 && !canSpawn && currentWaveNumber + 1 != waves.Length)//if no enemies left, wave is over, not yet completed all waves
+            if (totalEnemies.Length == enemiesBeforeWave && !canSpawn && currentWaveNumber + 1 != waves.Length)//if no enemies left, wave is over, not yet completed all waves
             {
                 SpawnNextWave();//go to the next wave
             }
             else if (currentWaveNumber + 1 == waves.Length &&
-                     totalEnemies.Length == 0 && !canSpawn) //if all waves spawned and no enemies left
+                     totalEnemies.Length == enemiesBeforeWave && !canSpawn) //if all waves spawned and no enemies left
             {
                 battleOver = true;//end battle (can use this as a trigger to open door etc.
             }
