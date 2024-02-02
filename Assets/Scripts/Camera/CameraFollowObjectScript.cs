@@ -6,17 +6,17 @@ public class CameraFollowObjectScript : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private Transform playerTransform;
+    public PlayerData playerData;
 
     [Header("Flip Rotation Stats")]
     [SerializeField] private float flipRotationTime = 0.5f;
     private Coroutine turnCoroutine;
-    private PlayerMovementOriginal player;
+    private NewPlayerMovement player;
     private bool isFacingRight;
 
     private void Awake()
     {
-        player = playerTransform.gameObject.GetComponent<PlayerMovementOriginal>();//get movement script from player object
-        isFacingRight = player.isFacingRight;//get facing right bool from player movement script
+        isFacingRight = playerData.isFacingRight;//get facing right bool from player movement script
     }
     private void Update()
     {

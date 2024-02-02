@@ -17,7 +17,7 @@ public class SpawnManager : MonoBehaviour
     public float triggerDelayOnRoomEntrance = .5f;
     public Vector2 entranceSpeed = new Vector2(20, 0);
     private Rigidbody2D rb;
-    private PlayerMovementOriginal movementScript;
+    private NewPlayerMovement movementScript;
     static int entranceIndex;
     public Transform lampSpawnPosition;
 
@@ -39,14 +39,14 @@ public class SpawnManager : MonoBehaviour
     {
         player = GameObject.FindWithTag("Player");//find the player object
         rb = player.GetComponent<Rigidbody2D>();
-        movementScript = player.GetComponent<PlayerMovementOriginal>();
+        movementScript = player.GetComponent<NewPlayerMovement>();
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         player = GameObject.FindWithTag("Player");//find the player object
         rb = player.GetComponent<Rigidbody2D>();
-        movementScript = player.GetComponent<PlayerMovementOriginal>();
+        movementScript = player.GetComponent<NewPlayerMovement>();
         entranceList = GameObject.FindGameObjectsWithTag("Exit");//find all exits and append to a list
 
         Debug.Log("RunningOnSceneLoad");
@@ -119,13 +119,13 @@ public class SpawnManager : MonoBehaviour
     IEnumerator ControlTriggerBehaviour(float triggerDelayOnRoomEntrance, Collider2D trigger)//turn trigger off and on upon room entrance
     {
         trigger.enabled = false;//disable trigger briefly
-        movementScript.isMovingEnabled = false;//disable inputs in player movement script
-        movementScript.isSceneTransitionActive = true;//set scene transition to be active to enable the automoving when exiting door
-        movementScript.sceneTransitionMovementDirectionHorizontal = exitEntranceTrigger.exit.sceneTransitionMovementDirectionHorizontal;//set speed to exit if door horizontal
-        movementScript.sceneTransitionMovementDirectionVertical = exitEntranceTrigger.exit.sceneTransitionMovementDirectionVertical;//set jump speed to exit if vertical
+        playerData.isMovingEnabled = false;//disable inputs in player movement script
+        playerData.isSceneTransitionActive = true;//set scene transition to be active to enable the automoving when exiting door
+        playerData.sceneTransitionMovementDirectionHorizontal = exitEntranceTrigger.exit.sceneTransitionMovementDirectionHorizontal;//set speed to exit if door horizontal
+        playerData.sceneTransitionMovementDirectionVertical = exitEntranceTrigger.exit.sceneTransitionMovementDirectionVertical;//set jump speed to exit if vertical
         yield return new WaitForSeconds(triggerDelayOnRoomEntrance);//keep moving with inputs disabled for a set time
-        movementScript.sceneTransitionMovementDirectionVertical = 0;//reset y movement to zero so it is not added again
-        movementScript.isMovingEnabled = true;//enable moving again
+        playerData.sceneTransitionMovementDirectionVertical = 0;//reset y movement to zero so it is not added again
+        playerData.isMovingEnabled = true;//enable moving again
         trigger.enabled = true;//reenable trigger on door for if you want to go back after scene transition
     }
 

@@ -32,7 +32,7 @@ public class PlayerCombat : MonoBehaviour
     private SpriteRenderer attackSpriteDown;
     private SpriteRenderer attackSprite;
 
-    PlayerMovementOriginal playerMovement;
+    NewPlayerMovement playerMovement;
 
     // Update is called once per frame
     private void Awake()
@@ -40,7 +40,7 @@ public class PlayerCombat : MonoBehaviour
         attackSpriteUp = GameObject.Find("AttackSpriteUp").GetComponent<SpriteRenderer>();
         attackSpriteDown = GameObject.Find("AttackSpriteDown").GetComponent<SpriteRenderer>();
         attackSpriteDefault = GameObject.Find("AttackSpriteDefault").GetComponent<SpriteRenderer>();
-        playerMovement = gameObject.GetComponent<PlayerMovementOriginal>();
+        playerMovement = gameObject.GetComponent<NewPlayerMovement>();
 
         //grab these from the player data scriptable object
         AttackRange = playerData.attackRange;
@@ -102,11 +102,12 @@ public class PlayerCombat : MonoBehaviour
     {
         if (Input.GetAxisRaw("Vertical") > 0)//set to up if player pressing up
         {
+            Debug.Log("attacking up");
             attackDirection = 1;
             Attackpoint = upAttackpoint;
             attackSprite = attackSpriteUp;
         }
-        if (Input.GetAxisRaw("Vertical") < 0 && !playerMovement.IsGrounded())//set to down if player is not grounded and pressing down
+        else if (Input.GetAxisRaw("Vertical") < 0 && playerMovement.LastOnGroundTime < 0)//set to down if player is not grounded and pressing down
         {
             attackDirection = -1;
             Attackpoint = downAttackpoint;
@@ -114,6 +115,7 @@ public class PlayerCombat : MonoBehaviour
         }
         else//set to player facing direction if not pressing up or down
         {
+            Debug.Log("attacking horizontal");
             attackDirection = 0;
             Attackpoint = sidewaysAttackpoint;
             attackSprite = attackSpriteDefault;

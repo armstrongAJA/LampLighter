@@ -12,41 +12,65 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbfb154d688994ab89fd711d0882ffeb, type: 3}
   m_Name: PlayerData
   m_EditorClassIdentifier: 
+  MaxLevel: 1
+  doConserveMomentum: 0
   lastLamp:
     lampIndex: 0
     lampSceneIndex: 1
     isLampLit: 0
   spawnWaitTime: 1
-  isExitingScene: 0
+  isExitingScene: 1
   MaxHealth: 100
   CurrentHealth: 100
   dead: 0
   respawning: 0
-  maxSpeed: 8
-  jumpSpeed: 14
-  wallJumpSpeedx: 20
-  wallJumpSpeedy: 14
-  wallSlideSpeed: 4
-  WallJumpTime: 0.5
-  wallcheckDistance: 0.2
-  coyoteTime: 0.1
+  runMaxSpeed: 9
+  runAccelAmount: 9
+  runDeccelAmount: 9
   maxFallSpeed: 18
+  isFacingRight: 0
+  jumpForce: 14
+  jumpHangTimeThreshold: 0.1
+  jumpInputBufferTime: 0.1
+  accelInAir: 9
+  deccelInAir: 9
+  jumpHangAccelerationMult: 0.1
+  jumpHangMaxSpeedMult: 1
+  wallJumpForceX: 20
+  wallJumpForceY: 14
+  wallSlideSpeed: 4
+  wallJumpTime: 0.5
+  wallcheckDistance: 0.2
+  wallJumpRunLerp: 0.04
+  slideSpeed: 0.5
+  slideAccel: 0.5
+  coyoteTime: 0.1
+  maxFastFallSpeed: 18
   trampolineJumpSpeed: 20
   groundCheckDistance: 1
   jumpDisabledWindowTime: 0.3
-  downRecoilSpeed: 10
-  horRecoilSpeed: 10
-  recoilHorLerpAmount: 0.5
-  recoilTime: 0.1
   attackRange: 0.5
   attackDamage: 20
   attackRate: 2
   attackTime: 0.1
-  normalGravity: 3
+  isRecoilingVert: 1
+  isRecoilingHor: 1
+  downRecoilSpeed: 20
+  horRecoilSpeed: 10
+  recoilHorLerpAmount: 0.5
+  recoilTime: 0.1
+  gravityScale: 3
   fallGravityMult: 1.9
-  wallJumpActive: 0
+  fastFallGravityMult: 1.9
+  jumpCutGravityMult: 3
+  jumpHangGravityMult: 0.5
+  wallJumpActive: 1
   doubleJumpActive: 0
   dashActive: 0
+  isMovingEnabled: 1
+  isSceneTransitionActive: 1
+  sceneTransitionMovementDirectionHorizontal: 1
+  sceneTransitionMovementDirectionVertical: 0
   EnemyLayers:
     serializedVersion: 2
     m_Bits: 256

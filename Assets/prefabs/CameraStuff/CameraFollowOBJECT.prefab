@@ -45,4 +45,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerTransform: {fileID: 0}
+  playerData: {fileID: 11400000, guid: 5069f3359438147c19d7813ecc0a6f0d, type: 2}
   flipRotationTime: 0.5

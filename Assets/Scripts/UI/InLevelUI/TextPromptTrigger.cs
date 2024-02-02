@@ -30,12 +30,17 @@ public class TextPromptTrigger : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-
-        triggerStay = true;
+        if (collision.CompareTag("Player"))
+        {
+            triggerStay = true;
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        triggerStay = false;
+        if (collision.CompareTag("Player"))
+        {
+            triggerStay = false;
+        }
     }
 }
