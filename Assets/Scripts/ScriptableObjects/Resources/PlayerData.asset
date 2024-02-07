@@ -37,7 +37,7 @@ MonoBehaviour:
   jumpHangAccelerationMult: 0.1
   jumpHangMaxSpeedMult: 1
   wallJumpForceX: 20
-  wallJumpForceY: 14
+  wallJumpForceY: 13
   wallSlideSpeed: 4
   wallJumpTime: 0.5
   wallcheckDistance: 0.2
@@ -65,7 +65,7 @@ MonoBehaviour:
   jumpCutGravityMult: 3
   jumpHangGravityMult: 0.5
   wallJumpActive: 1
-  doubleJumpActive: 0
+  doubleJumpActive: 1
   dashActive: 0
   isMovingEnabled: 1
   isSceneTransitionActive: 1

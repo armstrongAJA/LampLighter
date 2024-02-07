@@ -37,6 +37,9 @@ public class NewPlayerMovement : MonoBehaviour
 	private float _wallJumpStartTime;
 	private int _lastWallJumpDir;
 
+	//doubleJump
+	public bool hasDoubleJumped = false;
+
 	private Vector2 _moveInput;
 	public float LastPressedJumpTime { get; private set; }
 
@@ -126,6 +129,7 @@ public class NewPlayerMovement : MonoBehaviour
 			if (Physics2D.OverlapBox(_groundCheckPoint.position, _groundCheckSize, 0, _groundLayer) && !IsJumping) //checks if set box overlaps with ground
 			{
 				LastOnGroundTime = Data.coyoteTime; //if so sets the lastGrounded to coyoteTime
+				hasDoubleJumped = false; //reset double jump bool
 			}
 
 			//Right Wall Check
@@ -173,6 +177,16 @@ public class NewPlayerMovement : MonoBehaviour
 			_isJumpCut = false;
 			_isJumpFalling = false;
 			Jump();
+		}
+		//Double Jump
+		if (CanDoubleJump() && LastPressedJumpTime > 0 && Data.doubleJumpActive)
+        {
+			Debug.Log("DoubleJumping");
+			IsJumping = true;
+			IsWallJumping = false;
+			_isJumpCut = false;
+			_isJumpFalling = false;
+			DoubleJump();
 		}
 		//WALL JUMP
 		else if (CanWallJump() && LastPressedJumpTime > 0)
@@ -365,6 +379,23 @@ public class NewPlayerMovement : MonoBehaviour
 		RB.AddForce(Vector2.up * force, ForceMode2D.Impulse);
 		#endregion
 	}
+	private void DoubleJump()
+    {
+		//Ensures we can't call Jump multiple times from one press
+		LastPressedJumpTime = 0;
+		hasDoubleJumped = true;
+
+		#region Perform Jump
+		//We increase the force applied if we are falling
+		//This means we'll always feel like we jump the same amount 
+		//(setting the player's Y velocity to 0 beforehand will likely work the same, but I find this more elegant :D)
+		float force = Data.jumpForce;
+		if (RB.velocity.y < 0)
+			force -= RB.velocity.y;
+
+		RB.AddForce(Vector2.up * force, ForceMode2D.Impulse);
+		#endregion
+	}
 
 	private void WallJump(int dir)
 	{
@@ -417,6 +448,13 @@ public class NewPlayerMovement : MonoBehaviour
 	private bool CanJump()
 	{
 		return LastOnGroundTime > 0 && !IsJumping;
+	}
+
+	private bool CanDoubleJump()
+    {
+		//check if already double jumped and not on ground
+		return LastOnGroundTime < 0 && !hasDoubleJumped && LastOnWallLeftTime < 0 && LastOnWallRightTime < 0;
+
 	}
 
 	private bool CanWallJump()

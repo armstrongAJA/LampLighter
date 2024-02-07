@@ -11,6 +11,7 @@ public class PlayerSaveData : MonoBehaviour
     public static bool newGame = false;//update newGame variable to reset save
     public bool EncryptionEnabled;
 
+    //Set all the variables you want to save in this class (and in PlayerDataClass, which is the actual saved class
     //Lamp stuff:
     public int lastLampIndex;
     public int lastLampSceneIndex;

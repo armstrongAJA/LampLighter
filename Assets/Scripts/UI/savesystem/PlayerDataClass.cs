@@ -4,6 +4,8 @@ using UnityEngine;
 [System.Serializable]
 public class PlayerDataClass//create a new data type to define variables to save and load
 {
+    //define variables you wish to save:
+
     //Lamp stuff:
     public int lastLampIndex;
     public int lastLampSceneIndex;

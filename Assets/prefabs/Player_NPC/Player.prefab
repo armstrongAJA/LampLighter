@@ -264,7 +264,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 3
-  m_Material: {fileID: 6200000, guid: af2d83d01c9da49c3b73536b395b31aa, type: 2}
+  m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -724,6 +724,7 @@ MonoBehaviour:
   _groundLayer:
     serializedVersion: 2
     m_Bits: 0
+  cameraFollowGO: {fileID: 0}
 --- !u!1 &3817848981464910325
 GameObject:
   m_ObjectHideFlags: 0
